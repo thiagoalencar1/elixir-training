@@ -14,18 +14,21 @@ defmodule FizzBuzz do
     |> handle_file_read()
   end
 
-  def handle_file_read({:ok, result}) do
-    result
-    |> String.split(",")
-    |> Enum.map(&convert_and_evaluate_numbers/1)
+  defp handle_file_read({:ok, result}) do
+    result =
+      result
+      |> String.split(",")
+      |> Enum.map(&convert_and_evaluate_numbers/1)
+
+    {:ok, result}
   end
 
-  def handle_file_read({:error, reason}), do: "Error reading the file: #{reason}"
+  defp handle_file_read({:error, reason}), do: {:error, "Error reading the file: #{reason}"}
 
-  def convert_and_evaluate_numbers(elem) do
+  defp convert_and_evaluate_numbers(elem) do
     elem
-      |> String.to_integer()
-      |> evaluate_numbers()
+    |> String.to_integer()
+    |> evaluate_numbers()
   end
 
   def evaluate_numbers(number) when rem(number, 3) == 0 and rem(number, 5) == 0, do: :fizbuzz
