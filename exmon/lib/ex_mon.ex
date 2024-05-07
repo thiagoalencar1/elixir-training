@@ -12,16 +12,16 @@ defmodule ExMon do
 
   def start_game(player) do
     @computer_name
-    |>create_player(:punch, :kick, :heal)
-    |>Game.start(player)
+    |> create_player(:punch, :kick, :heal)
+    |> Game.start(player)
 
-    Status.print_round_message()
+    Status.print_round_message(Game.info())
   end
 
   def make_move(move) do
     move
-    |>Actions.fetch_move()
-    |>do_move()
+    |> Actions.fetch_move()
+    |> do_move()
   end
 
   defp do_move({:error, move}), do: Status.print_wrong_move_message(move)
@@ -30,5 +30,7 @@ defmodule ExMon do
       :move_heal -> "realiza cura"
       move -> Actions.attack(move)
     end
+
+    Status.print_round_message(Game.info())
   end
 end
