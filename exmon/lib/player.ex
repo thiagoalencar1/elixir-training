@@ -1,6 +1,6 @@
 defmodule ExMon.Player do
   # Aqui são declaradas algumas variáveis de módulos. Nota-se que variáveis de módulos não requerem o sinal de =.
-  @required_keys [:life, :move_avg, :move_heal, :move_rnd, :name]
+  @required_keys [:life, :moves, :name]
   @max_life 100
 
   # Aqui é criada uma struct com algumas chaves e declaramos que elas são obrigatórias com o @enforced_keys.
@@ -11,9 +11,11 @@ defmodule ExMon.Player do
   def build(name, move_rnd, move_avg, move_heal) do
     %ExMon.Player{
       life: @max_life,
-      move_rnd: move_rnd,
-      move_avg: move_avg,
-      move_heal: move_heal,
+      moves: %{
+        move_rnd: move_rnd,
+        move_avg: move_avg,
+        move_heal: move_heal,
+      },
       name: name
     }
   end

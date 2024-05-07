@@ -1,7 +1,7 @@
 defmodule ExMon do
   # Aqui é definido um alias para o ExMon.Player para chamarmos apenas com o Player (sem o sufixo).
   alias ExMon.{Game, Player} #as: Banana (Esse as: Banana foi deixado aqui propositalmente para demonstrar que um alias pode ser arbitrário.)
-  alias ExMon.Game.Status
+  alias ExMon.Game.{Actions, Status}
 
   @computer_name "Robotinik"
 
@@ -12,9 +12,23 @@ defmodule ExMon do
 
   def start_game(player) do
     @computer_name
-      |>create_player(:punch, :kick, :heal)
-      |>Game.start(player)
+    |>create_player(:punch, :kick, :heal)
+    |>Game.start(player)
 
-      Status.print_round_message()
+    Status.print_round_message()
+  end
+
+  def make_move(move) do
+    move
+    |>Actions.fetch_move()
+    |>do_move()
+  end
+
+  defp do_move({:error, move}), do: Status.print_wrong_move_message(move)
+  defp do_move({:ok, move}) do
+    case move do
+      :move_heal -> "realiza cura"
+      move -> Actions.attack(move)
+    end
   end
 end
