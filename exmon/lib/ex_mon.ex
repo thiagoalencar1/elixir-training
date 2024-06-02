@@ -1,9 +1,9 @@
 defmodule ExMon do
   # Aqui é definido um alias para o ExMon.Player para chamarmos apenas com o Player (sem o sufixo).
   alias ExMon.{Game, Player} #as: Banana (Esse as: Banana foi deixado aqui propositalmente para demonstrar que um alias pode ser arbitrário.)
-  alias ExMon.Game.{Actions, Status}
+  alias ExMon.Game.{Actions, Status} # Apesar desse formato reduzido de declarar o alias economizar linhas de código, ela pode dificultar a busca de um determinado alias em um projeto grande. Dessa forma, pode ser melhor dexar cada alias em uma linha separada.
 
-  @computer_name "Robotinik"
+  @computer_name "Robotinik" # variáveis de módulo exercem um papel parecido com as constantes em ruby.
   @computer_moves [:move_avg, :move_rnd, :move_heal]
 
   # Aqui é definida a função create_player, que basicamente permite que criemos um Player direto do módulo ExMon
